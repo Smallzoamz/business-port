@@ -147,8 +147,12 @@ router.post('/upload', requireAuth, upload.single('file'), async (req, res) => {
 
             const resourceType = (isPDF || isDocument) ? 'raw' : 'auto';
 
+            // Get file extension from original filename
+            const ext = path.extname(req.file.originalname);
+            const publicId = uuidv4() + ext;
+
             const result = await uploadToCloudinary(req.file.buffer, {
-                public_id: uuidv4(),
+                public_id: publicId,
                 resource_type: resourceType
             });
 
