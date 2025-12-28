@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Portfolio</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Admin Styles -->
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+
+<body class="login-page">
+    <!-- Background Effects -->
+    <div class="bg-effects">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="grid-pattern"></div>
+    </div>
+
+    <!-- Login Container -->
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="logo">
+                    <span class="logo-icon">◈</span>
+                </div>
+                <h1>Admin Panel</h1>
+                <p>เข้าสู่ระบบเพื่อจัดการ Portfolio</p>
+            </div>
+
+            <form id="login-form" class="login-form">
+                <div class="form-group">
+                    <label for="username">
+                        <i class="fas fa-user"></i>
+                        ชื่อผู้ใช้
+                    </label>
+                    <input type="text" id="username" name="username" placeholder="กรอกชื่อผู้ใช้" required
+                        autocomplete="username">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">
+                        <i class="fas fa-lock"></i>
+                        รหัสผ่าน
+                    </label>
+                    <div class="password-input">
+                        <input type="password" id="password" name="password" placeholder="กรอกรหัสผ่าน" required
+                            autocomplete="current-password">
+                        <button type="button" class="toggle-password" onclick="togglePassword()">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="error-message" class="error-message" style="display: none;">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span></span>
+                </div>
+
+                <button type="submit" class="btn-login">
+                    <span class="btn-text">เข้าสู่ระบบ</span>
+                    <span class="btn-loader" style="display: none;">
+                        <i class="fas fa-spinner fa-spin"></i>
+                    </span>
+                </button>
+            </form>
+
+            <div class="login-footer">
+                <a href="/" class="back-link">
+                    <i class="fas fa-arrow-left"></i>
+                    กลับไปหน้า Portfolio
+                </a>
+            </div>
+        </div>
+
+        <div class="login-info">
+            <div class="info-card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>ปลอดภัย</h3>
+                <p>ข้อมูลถูกเข้ารหัสและรักษาความปลอดภัย</p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-edit"></i>
+                <h3>แก้ไขได้ทุกอย่าง</h3>
+                <p>จัดการข้อมูล Portfolio ได้อย่างเต็มที่</p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <h3>อัพโหลดไฟล์</h3>
+                <p>รองรับรูปภาพ, PDF และเอกสารต่างๆ</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check if already logged in
+        fetch('/api/auth/check')
+            .then(res => res.json())
+            .then(data => {
+                if (data.authenticated) {
+                    window.location.href = '/admin/dashboard.html';
+                }
+            });
+
+        // Toggle password visibility
+        function togglePassword() {
+            const input = document.getElementById('password');
+            const icon = document.querySelector('.toggle-password i');
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        }
+
+        // Handle login
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const btn = document.querySelector('.btn-login');
+            const btnText = btn.querySelector('.btn-text');
+            const btnLoader = btn.querySelector('.btn-loader');
+            const errorDiv = document.getElementById('error-message');
+
+            // Show loading
+            btnText.style.display = 'none';
+            btnLoader.style.display = 'inline-block';
+            btn.disabled = true;
+            errorDiv.style.display = 'none';
+
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        username: document.getElementById('username').value,
+                        password: document.getElementById('password').value
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    window.location.href = '/admin/dashboard.html';
+                } else {
+                    throw new Error(data.error || 'Login failed');
+                }
+            } catch (error) {
+                errorDiv.querySelector('span').textContent = error.message || 'เกิดข้อผิดพลาด กรุณาลองใหม่';
+                errorDiv.style.display = 'flex';
+            } finally {
+                btnText.style.display = 'inline-block';
+                btnLoader.style.display = 'none';
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+
+</html>

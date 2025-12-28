@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Admin Panel</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Admin Styles -->
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+
+<body class="dashboard-page">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <span class="logo-icon">◈</span>
+                <span class="logo-text">ADMIN</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="#personal" class="nav-item active" data-section="personal">
+                <i class="fas fa-user"></i>
+                <span>ข้อมูลส่วนตัว</span>
+            </a>
+            <a href="#education" class="nav-item" data-section="education">
+                <i class="fas fa-graduation-cap"></i>
+                <span>การศึกษา</span>
+            </a>
+            <a href="#experience" class="nav-item" data-section="experience">
+                <i class="fas fa-briefcase"></i>
+                <span>ประสบการณ์</span>
+            </a>
+            <a href="#projects" class="nav-item" data-section="projects">
+                <i class="fas fa-project-diagram"></i>
+                <span>โปรเจค</span>
+            </a>
+            <a href="#skills" class="nav-item" data-section="skills">
+                <i class="fas fa-chart-bar"></i>
+                <span>ทักษะ</span>
+            </a>
+            <a href="#certifications" class="nav-item" data-section="certifications">
+                <i class="fas fa-certificate"></i>
+                <span>ใบรับรอง</span>
+            </a>
+            <a href="#contact" class="nav-item" data-section="contact">
+                <i class="fas fa-address-card"></i>
+                <span>ข้อมูลติดต่อ</span>
+            </a>
+            <a href="#files" class="nav-item" data-section="files">
+                <i class="fas fa-folder-open"></i>
+                <span>จัดการไฟล์</span>
+            </a>
+            <a href="#settings" class="nav-item" data-section="settings">
+                <i class="fas fa-cog"></i>
+                <span>ตั้งค่า</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="/" class="nav-item" target="_blank">
+                <i class="fas fa-external-link-alt"></i>
+                <span>ดู Portfolio</span>
+            </a>
+            <button class="nav-item logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>ออกจากระบบ</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="main-header">
+            <button class="menu-toggle" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h1 id="page-title">ข้อมูลส่วนตัว</h1>
+            <div class="header-actions">
+                <span id="user-name" class="user-badge">
+                    <i class="fas fa-user-circle"></i>
+                    Admin
+                </span>
+            </div>
+        </header>
+
+        <!-- Content Sections -->
+        <div class="content-wrapper">
+            <!-- Personal Info Section -->
+            <section id="section-personal" class="content-section active">
+                <div class="section-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-user"></i> ข้อมูลส่วนตัว</h2>
+                    </div>
+                    <form id="personal-form" class="form-grid">
+                        <div class="form-group full-width">
+                            <label>รูปโปรไฟล์</label>
+                            <div class="image-upload" id="profile-preview">
+                                <i class="fas fa-user"></i>
+                                <span>คลิกเพื่อเลือกรูป</span>
+                            </div>
+                            <input type="file" id="profile-image-input" accept="image/*" style="display:none">
+                            <input type="hidden" id="profile_image" name="profile_image">
+                        </div>
+                        <div class="form-group">
+                            <label for="full_name">ชื่อ-นามสกุล</label>
+                            <input type="text" id="full_name" name="full_name" placeholder="กรอกชื่อ-นามสกุล">
+                        </div>
+                        <div class="form-group">
+                            <label for="title">ตำแหน่ง / Title</label>
+                            <input type="text" id="title" name="title"
+                                placeholder="เช่น Modern Management Professional">
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="subtitle">คำอธิบายสั้น (Subtitle)</label>
+                            <input type="text" id="subtitle" name="subtitle" placeholder="เช่น นักศึกษาคณะบริหารธุรกิจ">
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="bio">เกี่ยวกับตัวเอง (Bio)</label>
+                            <textarea id="bio" name="bio" rows="5" placeholder="เขียนแนะนำตัวเอง..."></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Resume / CV</label>
+                            <div class="file-upload-area" id="resume-preview">
+                                <i class="fas fa-file-pdf"></i>
+                                <span>คลิกเพื่ออัพโหลด Resume (PDF)</span>
+                            </div>
+                            <input type="file" id="resume-input" accept=".pdf" style="display:none">
+                            <input type="hidden" id="resume_file" name="resume_file">
+                        </div>
+                        <div class="form-actions full-width">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> บันทึก
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Education Section -->
+            <section id="section-education" class="content-section">
+                <div class="section-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-graduation-cap"></i> การศึกษา</h2>
+                        <button class="btn btn-primary btn-sm" onclick="openModal('education')">
+                            <i class="fas fa-plus"></i> เพิ่ม
+                        </button>
+                    </div>
+                    <div class="items-list" id="education-list">
+                        <!-- Items loaded dynamically -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Experience Section -->
+            <section id="section-experience" class="content-section">
+                <div class="section-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-briefcase"></i> ประสบการณ์ทำงาน</h2>
+                        <button class="btn btn-primary btn-sm" onclick="openModal('experience')">
+                            <i class="fas fa-plus"></i> เพิ่ม
+                        </button>
+                    </div>
+                    <div class="items-list" id="experience-list">
+                        <!-- Items loaded dynamically -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section id="section-projects" class="content-section">
+                <div class="section-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-project-diagram"></i> โปรเจค / ผลงาน</h2>
+                        <button class="btn btn-primary btn-sm" onclick="openModal('project')">
+                            <i class="fas fa-plus"></i> เพิ่ม
+                        </button>
+                    </div>
+                    <div class="items-grid" id="projects-list">
+                        <!-- Items loaded dynamically -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Skills Section -->
+            <section id="section-skills" class="content-section">
+                <div class="section-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-chart-bar"></i> ทักษะ</h2>
+                        <button class="btn btn-primary btn-sm" onclick="openModal('skill')">
+                            <i class="fas fa-plus"></i> เพิ่ม
+                        </button>
+                    </div>
+                    <div class="skills-admin-grid" id="skills-list">
+                        <!-- Items loaded dynamically -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Certifications Section -->
+            <section id="section-certifications" class="content-section">
+                <div class="section-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-certificate"></i> ใบรับรอง / ประกาศนียบัตร</h2>
+                        <button class="btn btn-primary btn-sm" onclick="openModal('certification')">
+                            <i class="fas fa-plus"></i> เพิ่ม
+                        </button>
+                    </div>
+                    <div class="items-list" id="certifications-list">
+                        <!-- Items loaded dynamically -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="section-contact" class="content-section">
+                <div class="section-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-address-card"></i> ข้อมูลติดต่อ</h2>
+                    </div>
+                    <form id="contact-form" class="form-grid">
+                        <div class="form-group">
+                            <label for="email"><i class="fas fa-envelope"></i> อีเมล</label>
+                            <input type="email" id="email" name="email" placeholder="email@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone"><i class="fas fa-phone"></i> เบอร์โทรศัพท์</label>
+                            <input type="tel" id="phone" name="phone" placeholder="0xx-xxx-xxxx">
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="address"><i class="fas fa-map-marker-alt"></i> ที่อยู่</label>
+                            <input type="text" id="address" name="address" placeholder="ที่อยู่">
+                        </div>
+                        <div class="form-group">
+                            <label for="linkedin"><i class="fab fa-linkedin"></i> LinkedIn</label>
+                            <input type="url" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/...">
+                        </div>
+                        <div class="form-group">
+                            <label for="github"><i class="fab fa-github"></i> GitHub</label>
+                            <input type="url" id="github" name="github" placeholder="https://github.com/...">
+                        </div>
+                        <div class="form-group">
+                            <label for="facebook"><i class="fab fa-facebook"></i> Facebook</label>
+                            <input type="url" id="facebook" name="facebook" placeholder="https://facebook.com/...">
+                        </div>
+                        <div class="form-group">
+                            <label for="instagram"><i class="fab fa-instagram"></i> Instagram</label>
+                            <input type="url" id="instagram" name="instagram" placeholder="https://instagram.com/...">
+                        </div>
+                        <div class="form-group">
+                            <label for="twitter"><i class="fab fa-twitter"></i> Twitter / X</label>
+                            <input type="url" id="twitter" name="twitter" placeholder="https://twitter.com/...">
+                        </div>
+                        <div class="form-group">
+                            <label for="website"><i class="fas fa-globe"></i> Website</label>
+                            <input type="url" id="website" name="website" placeholder="https://...">
+                        </div>
+                        <div class="form-actions full-width">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> บันทึก
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Files Section -->
+            <section id="section-files" class="content-section">
+                <div class="section-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-folder-open"></i> จัดการไฟล์</h2>
+                        <button class="btn btn-primary btn-sm"
+                            onclick="document.getElementById('file-upload-input').click()">
+                            <i class="fas fa-upload"></i> อัพโหลด
+                        </button>
+                        <input type="file" id="file-upload-input" multiple style="display:none"
+                            onchange="uploadFiles(this.files)">
+                    </div>
+                    <div class="files-grid" id="files-list">
+                        <!-- Files loaded dynamically -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="section-settings" class="content-section">
+                <div class="section-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-cog"></i> ตั้งค่า</h2>
+                    </div>
+                    <form id="settings-form" class="form-grid">
+                        <div class="form-group">
+                            <label for="site_title">ชื่อเว็บไซต์</label>
+                            <input type="text" id="site_title" name="site_title" placeholder="Business Portfolio">
+                        </div>
+                        <div class="form-group">
+                            <label for="meta_description">Meta Description (SEO)</label>
+                            <input type="text" id="meta_description" name="meta_description"
+                                placeholder="คำอธิบายสำหรับ SEO">
+                        </div>
+                        <div class="form-actions full-width">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> บันทึก
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="section-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-key"></i> เปลี่ยนรหัสผ่าน</h2>
+                    </div>
+                    <form id="password-form" class="form-grid">
+                        <div class="form-group">
+                            <label for="current_password">รหัสผ่านปัจจุบัน</label>
+                            <input type="password" id="current_password" name="current_password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="new_password">รหัสผ่านใหม่</label>
+                            <input type="password" id="new_password" name="new_password" required minlength="6">
+                        </div>
+                        <div class="form-actions full-width">
+                            <button type="submit" class="btn btn-secondary">
+                                <i class="fas fa-key"></i> เปลี่ยนรหัสผ่าน
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">เพิ่มข้อมูล</h2>
+                <button class="modal-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Form loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast">
+        <i class="toast-icon"></i>
+        <span class="toast-message"></span>
+    </div>
+
+    <!-- Admin JS -->
+    <script src="../js/admin.js"></script>
+</body>
+
+</html>

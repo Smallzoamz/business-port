@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Portfolio | Modern Management Professional</title>
+    <meta name="description" content="Professional Portfolio for Modern Management">
+
+    <!-- Google Fonts - Clean Modern -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+
+<body>
+    <!-- Particle Background -->
+    <div id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo">
+                <span class="logo-icon">◈</span>
+                <span class="logo-text">PORTFOLIO</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link active">หน้าหลัก</a></li>
+                <li><a href="#about" class="nav-link">เกี่ยวกับ</a></li>
+                <li><a href="#education" class="nav-link">การศึกษา</a></li>
+                <li><a href="#experience" class="nav-link">ประสบการณ์</a></li>
+                <li><a href="#projects" class="nav-link">ผลงาน</a></li>
+                <li><a href="#skills" class="nav-link">ทักษะ</a></li>
+                <li><a href="#contact" class="nav-link">ติดต่อ</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-bg">
+            <div class="hero-gradient"></div>
+            <div class="grid-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                <span id="hero-subtitle">พร้อมเริ่มต้นเส้นทางใหม่</span>
+            </div>
+            <h1 class="hero-title">
+                <span class="title-line" id="hero-greeting">สวัสดีครับ ผม</span>
+                <span class="title-name" id="hero-name">ชื่อ-นามสกุล</span>
+            </h1>
+            <p class="hero-description" id="hero-title">Modern Management Professional</p>
+            <div class="hero-tags" id="hero-tags">
+                <span class="tag">Business Management</span>
+                <span class="tag">Strategic Planning</span>
+                <span class="tag">Team Leadership</span>
+            </div>
+            <div class="hero-cta">
+                <a href="#contact" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i>
+                    ติดต่อเรา
+                </a>
+                <a href="#projects" class="btn btn-outline">
+                    <i class="fas fa-folder-open"></i>
+                    ดูผลงาน
+                </a>
+            </div>
+            <div class="hero-scroll">
+                <span>เลื่อนลง</span>
+                <div class="scroll-indicator">
+                    <div class="scroll-dot"></div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <!-- 3D Orbit System - Profile as Planet with Single Satellite -->
+            <div class="orbit-container">
+                <!-- Single Orbit Ring (Tilted in 3D) -->
+                <div class="orbit-ring"></div>
+
+                <!-- The Planet (Profile) -->
+                <div class="planet-profile-wrapper">
+                    <div class="planet-profile" id="hero-profile">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+                <div class="planet-glow"></div>
+
+                <!-- Single Satellite Word that orbits -->
+                <div class="satellite-word" id="satellite-word" style="visibility: hidden;">
+                    <i class="fas fa-chart-line" id="sat-icon"></i>
+                    <span id="sat-text">Analytics</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section about">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">เกี่ยวกับผม</span>
+                <h2 class="section-title">ทำความรู้จัก<span class="accent">กับผม</span></h2>
+            </div>
+            <div class="about-content">
+                <div class="about-image">
+                    <div class="image-frame">
+                        <div class="image-placeholder" id="about-image">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                    </div>
+                    <div class="experience-badge">
+                        <span class="badge-number" id="about-years">2025</span>
+                        <span class="badge-text">เริ่มต้นใหม่</span>
+                    </div>
+                </div>
+                <div class="about-text">
+                    <h3 class="about-headline" id="about-title">Modern Management Professional</h3>
+                    <p class="about-bio" id="about-bio">
+                        นักศึกษาที่กำลังจะเข้าศึกษาต่อในระดับมหาวิทยาลัย มีความมุ่งมั่นและพร้อมเรียนรู้สิ่งใหม่ๆ
+                        ในสาขาการจัดการธุรกิจสมัยใหม่
+                    </p>
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <span class="stat-icon"><i class="fas fa-graduation-cap"></i></span>
+                            <div class="stat-info">
+                                <span class="stat-value" id="stat-education">1</span>
+                                <span class="stat-label">การศึกษา</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon"><i class="fas fa-briefcase"></i></span>
+                            <div class="stat-info">
+                                <span class="stat-value" id="stat-experience">0</span>
+                                <span class="stat-label">ประสบการณ์</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon"><i class="fas fa-project-diagram"></i></span>
+                            <div class="stat-info">
+                                <span class="stat-value" id="stat-projects">0</span>
+                                <span class="stat-label">โปรเจค</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon"><i class="fas fa-certificate"></i></span>
+                            <div class="stat-info">
+                                <span class="stat-value" id="stat-certs">0</span>
+                                <span class="stat-label">ใบรับรอง</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-primary" id="download-resume" style="display: none;">
+                        <i class="fas fa-download"></i>
+                        ดาวน์โหลด Resume
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="section education">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">การศึกษา</span>
+                <h2 class="section-title">ประวัติ<span class="accent">การศึกษา</span></h2>
+            </div>
+            <div class="timeline" id="education-timeline">
+                <!-- Education items will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section experience">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">ประสบการณ์</span>
+                <h2 class="section-title">ประสบการณ์<span class="accent">ทำงาน</span></h2>
+            </div>
+            <div class="timeline" id="experience-timeline">
+                <!-- Experience items will be loaded dynamically -->
+            </div>
+            <div class="empty-state" id="experience-empty" style="display: none;">
+                <i class="fas fa-briefcase"></i>
+                <p>กำลังเริ่มต้นเส้นทางอาชีพ</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section projects">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">ผลงาน</span>
+                <h2 class="section-title">โปรเจค<span class="accent">และผลงาน</span></h2>
+            </div>
+            <div class="projects-filter" id="projects-filter">
+                <button class="filter-btn active" data-filter="all">ทั้งหมด</button>
+            </div>
+            <div class="projects-grid" id="projects-grid">
+                <!-- Projects will be loaded dynamically -->
+            </div>
+            <div class="empty-state" id="projects-empty" style="display: none;">
+                <i class="fas fa-folder-open"></i>
+                <p>กำลังพัฒนาผลงานใหม่ๆ</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section skills">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">ทักษะ</span>
+                <h2 class="section-title">ความ<span class="accent">สามารถ</span></h2>
+            </div>
+            <div class="skills-container">
+                <div class="skills-category" id="skills-management">
+                    <h3 class="category-title">
+                        <i class="fas fa-chart-pie"></i>
+                        Management Skills
+                    </h3>
+                    <div class="skills-list"></div>
+                </div>
+                <div class="skills-category" id="skills-technical">
+                    <h3 class="category-title">
+                        <i class="fas fa-laptop-code"></i>
+                        Technical Skills
+                    </h3>
+                    <div class="skills-list"></div>
+                </div>
+                <div class="skills-category" id="skills-soft">
+                    <h3 class="category-title">
+                        <i class="fas fa-heart"></i>
+                        Soft Skills
+                    </h3>
+                    <div class="skills-list"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications" class="section certifications">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">ใบรับรอง</span>
+                <h2 class="section-title">ประกาศนียบัตร<span class="accent">และใบรับรอง</span></h2>
+            </div>
+            <div class="certs-grid" id="certs-grid">
+                <!-- Certifications will be loaded dynamically -->
+            </div>
+            <div class="empty-state" id="certs-empty" style="display: none;">
+                <i class="fas fa-certificate"></i>
+                <p>กำลังพัฒนาความรู้เพิ่มเติม</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">ติดต่อ</span>
+                <h2 class="section-title">มา<span class="accent">ทำงานด้วยกัน</span></h2>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>ติดต่อได้ที่</h3>
+                    <div class="contact-items">
+                        <a href="#" class="contact-item" id="contact-email">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                <span class="label">อีเมล</span>
+                                <span class="value">email@example.com</span>
+                            </div>
+                        </a>
+                        <a href="#" class="contact-item" id="contact-phone">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-text">
+                                <span class="label">โทรศัพท์</span>
+                                <span class="value">0xx-xxx-xxxx</span>
+                            </div>
+                        </a>
+                        <div class="contact-item" id="contact-address">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <span class="label">ที่อยู่</span>
+                                <span class="value">ประเทศไทย</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="social-links" id="social-links">
+                        <!-- Social links will be added dynamically -->
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <div class="card-header">
+                        <i class="fas fa-paper-plane"></i>
+                        <h3>พร้อมร่วมงาน</h3>
+                    </div>
+                    <p>สนใจร่วมงานหรือต้องการติดต่อสอบถาม สามารถติดต่อได้ตามช่องทางด้านซ้าย
+                        หรือกดปุ่มด้านล่างเพื่อดาวน์โหลด Resume</p>
+                    <a href="#" class="btn btn-primary btn-full" id="contact-resume" style="display: none;">
+                        <i class="fas fa-download"></i>
+                        ดาวน์โหลด Resume
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span class="logo-icon">◈</span>
+                    <span>PORTFOLIO</span>
+                </div>
+                <p class="footer-text">สร้างด้วยความตั้งใจ พร้อมก้าวสู่โลกธุรกิจยุคใหม่</p>
+                <p class="footer-copy">&copy; <span id="current-year">2025</span> All Rights Reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+</body>
+
+</html>
