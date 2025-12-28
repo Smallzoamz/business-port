@@ -17,6 +17,11 @@ const filesRoutes = require('./src/routes/files');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Trust proxy for Railway/Heroku (required for secure cookies behind load balancer)
+if (process.env.NODE_ENV === 'production') {
+    app.set('trust proxy', 1);
+}
+
 // Middleware
 app.use(cors({
     origin: true,
@@ -33,6 +38,7 @@ app.use(session({
     cookie: {
         secure: process.env.NODE_ENV === 'production',
         httpOnly: true,
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
         maxAge: 24 * 60 * 60 * 1000 // 24 hours
     }
 }));
