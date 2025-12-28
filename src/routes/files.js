@@ -138,8 +138,18 @@ router.post('/upload', requireAuth, upload.single('file'), async (req, res) => {
 
         if (useCloudinary) {
             // Upload to Cloudinary
+            // Use 'raw' for PDFs and documents so they can be downloaded
+            const isPDF = req.file.mimetype === 'application/pdf';
+            const isDocument = req.file.mimetype.includes('msword') ||
+                req.file.mimetype.includes('officedocument') ||
+                req.file.mimetype.includes('ms-excel') ||
+                req.file.mimetype.includes('ms-powerpoint');
+
+            const resourceType = (isPDF || isDocument) ? 'raw' : 'auto';
+
             const result = await uploadToCloudinary(req.file.buffer, {
-                public_id: uuidv4()
+                public_id: uuidv4(),
+                resource_type: resourceType
             });
 
             return res.json({
