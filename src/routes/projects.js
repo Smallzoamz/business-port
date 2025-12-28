@@ -5,9 +5,9 @@ const { requireAuth } = require('../middleware/auth');
 const router = express.Router();
 
 // Get all projects
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     try {
-        const data = db.getAllProjects();
+        const data = await db.getAllProjects();
         res.json(data);
     } catch (error) {
         console.error('Get projects error:', error);
@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
 });
 
 // Add project
-router.post('/', requireAuth, (req, res) => {
+router.post('/', requireAuth, async (req, res) => {
     try {
         const { title, description, category, image, link, github_link, technologies, featured, sort_order } = req.body;
 
@@ -24,7 +24,7 @@ router.post('/', requireAuth, (req, res) => {
             return res.status(400).json({ error: 'Title is required' });
         }
 
-        const newProject = db.addProject({
+        const newProject = await db.addProject({
             title,
             description: description || '',
             category: category || '',
@@ -44,10 +44,10 @@ router.post('/', requireAuth, (req, res) => {
 });
 
 // Update project
-router.put('/:id', requireAuth, (req, res) => {
+router.put('/:id', requireAuth, async (req, res) => {
     try {
         const id = parseInt(req.params.id);
-        const existing = db.getProjectById(id);
+        const existing = await db.getProjectById(id);
 
         if (!existing) {
             return res.status(404).json({ error: 'Project not found' });
@@ -58,7 +58,7 @@ router.put('/:id', requireAuth, (req, res) => {
             updates.featured = updates.featured ? 1 : 0;
         }
 
-        const updated = db.updateProject(id, updates);
+        const updated = await db.updateProject(id, updates);
         res.json({ success: true, data: updated });
     } catch (error) {
         console.error('Update project error:', error);
@@ -67,16 +67,16 @@ router.put('/:id', requireAuth, (req, res) => {
 });
 
 // Delete project
-router.delete('/:id', requireAuth, (req, res) => {
+router.delete('/:id', requireAuth, async (req, res) => {
     try {
         const id = parseInt(req.params.id);
-        const existing = db.getProjectById(id);
+        const existing = await db.getProjectById(id);
 
         if (!existing) {
             return res.status(404).json({ error: 'Project not found' });
         }
 
-        db.deleteProject(id);
+        await db.deleteProject(id);
         res.json({ success: true, message: 'Project deleted' });
     } catch (error) {
         console.error('Delete project error:', error);

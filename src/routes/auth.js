@@ -5,7 +5,7 @@ const db = require('../database/db');
 const router = express.Router();
 
 // Login
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
     try {
         const { username, password } = req.body;
 
@@ -13,7 +13,7 @@ router.post('/login', (req, res) => {
             return res.status(400).json({ error: 'Username and password are required' });
         }
 
-        const user = db.getUserByUsername(username);
+        const user = await db.getUserByUsername(username);
 
         if (!user) {
             return res.status(401).json({ error: 'Invalid credentials' });
@@ -60,7 +60,7 @@ router.get('/check', (req, res) => {
 });
 
 // Change password
-router.put('/password', (req, res) => {
+router.put('/password', async (req, res) => {
     try {
         if (!req.session || !req.session.userId) {
             return res.status(401).json({ error: 'Authentication required' });
@@ -76,14 +76,14 @@ router.put('/password', (req, res) => {
             return res.status(400).json({ error: 'New password must be at least 6 characters' });
         }
 
-        const user = db.getUserById(req.session.userId);
+        const user = await db.getUserById(req.session.userId);
 
         if (!bcrypt.compareSync(currentPassword, user.password)) {
             return res.status(401).json({ error: 'Current password is incorrect' });
         }
 
         const hashedPassword = bcrypt.hashSync(newPassword, 10);
-        db.updateUserPassword(req.session.userId, hashedPassword);
+        await db.updateUserPassword(req.session.userId, hashedPassword);
 
         res.json({ success: true, message: 'Password changed successfully' });
     } catch (error) {

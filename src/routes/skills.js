@@ -5,9 +5,9 @@ const { requireAuth } = require('../middleware/auth');
 const router = express.Router();
 
 // Get all skills
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     try {
-        const data = db.getAllSkills();
+        const data = await db.getAllSkills();
         res.json(data);
     } catch (error) {
         console.error('Get skills error:', error);
@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
 });
 
 // Add skill
-router.post('/', requireAuth, (req, res) => {
+router.post('/', requireAuth, async (req, res) => {
     try {
         const { name, category, level, icon, sort_order } = req.body;
 
@@ -24,7 +24,7 @@ router.post('/', requireAuth, (req, res) => {
             return res.status(400).json({ error: 'Name is required' });
         }
 
-        const newSkill = db.addSkill({
+        const newSkill = await db.addSkill({
             name,
             category: category || 'technical',
             level: level || 50,
@@ -40,16 +40,16 @@ router.post('/', requireAuth, (req, res) => {
 });
 
 // Update skill
-router.put('/:id', requireAuth, (req, res) => {
+router.put('/:id', requireAuth, async (req, res) => {
     try {
         const id = parseInt(req.params.id);
-        const existing = db.getSkillById(id);
+        const existing = await db.getSkillById(id);
 
         if (!existing) {
             return res.status(404).json({ error: 'Skill not found' });
         }
 
-        const updated = db.updateSkill(id, req.body);
+        const updated = await db.updateSkill(id, req.body);
         res.json({ success: true, data: updated });
     } catch (error) {
         console.error('Update skill error:', error);
@@ -58,16 +58,16 @@ router.put('/:id', requireAuth, (req, res) => {
 });
 
 // Delete skill
-router.delete('/:id', requireAuth, (req, res) => {
+router.delete('/:id', requireAuth, async (req, res) => {
     try {
         const id = parseInt(req.params.id);
-        const existing = db.getSkillById(id);
+        const existing = await db.getSkillById(id);
 
         if (!existing) {
             return res.status(404).json({ error: 'Skill not found' });
         }
 
-        db.deleteSkill(id);
+        await db.deleteSkill(id);
         res.json({ success: true, message: 'Skill deleted' });
     } catch (error) {
         console.error('Delete skill error:', error);

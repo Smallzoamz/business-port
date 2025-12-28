@@ -5,9 +5,9 @@ const { requireAuth } = require('../middleware/auth');
 const router = express.Router();
 
 // Get all education
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     try {
-        const data = db.getAllEducation();
+        const data = await db.getAllEducation();
         res.json(data);
     } catch (error) {
         console.error('Get education error:', error);
@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
 });
 
 // Add education
-router.post('/', requireAuth, (req, res) => {
+router.post('/', requireAuth, async (req, res) => {
     try {
         const { institution, degree, field, start_year, end_year, gpa, description, logo, is_current, sort_order } = req.body;
 
@@ -24,7 +24,7 @@ router.post('/', requireAuth, (req, res) => {
             return res.status(400).json({ error: 'Institution and degree are required' });
         }
 
-        const newEducation = db.addEducation({
+        const newEducation = await db.addEducation({
             institution,
             degree,
             field: field || '',
@@ -45,10 +45,10 @@ router.post('/', requireAuth, (req, res) => {
 });
 
 // Update education
-router.put('/:id', requireAuth, (req, res) => {
+router.put('/:id', requireAuth, async (req, res) => {
     try {
         const id = parseInt(req.params.id);
-        const existing = db.getEducationById(id);
+        const existing = await db.getEducationById(id);
 
         if (!existing) {
             return res.status(404).json({ error: 'Education not found' });
@@ -59,7 +59,7 @@ router.put('/:id', requireAuth, (req, res) => {
             updates.is_current = updates.is_current ? 1 : 0;
         }
 
-        const updated = db.updateEducation(id, updates);
+        const updated = await db.updateEducation(id, updates);
         res.json({ success: true, data: updated });
     } catch (error) {
         console.error('Update education error:', error);
@@ -68,16 +68,16 @@ router.put('/:id', requireAuth, (req, res) => {
 });
 
 // Delete education
-router.delete('/:id', requireAuth, (req, res) => {
+router.delete('/:id', requireAuth, async (req, res) => {
     try {
         const id = parseInt(req.params.id);
-        const existing = db.getEducationById(id);
+        const existing = await db.getEducationById(id);
 
         if (!existing) {
             return res.status(404).json({ error: 'Education not found' });
         }
 
-        db.deleteEducation(id);
+        await db.deleteEducation(id);
         res.json({ success: true, message: 'Education deleted' });
     } catch (error) {
         console.error('Delete education error:', error);

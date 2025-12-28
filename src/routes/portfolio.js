@@ -5,16 +5,16 @@ const { requireAuth } = require('../middleware/auth');
 const router = express.Router();
 
 // Get all portfolio data (public)
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     try {
-        const personalInfo = db.getPersonalInfo();
-        const education = db.getAllEducation();
-        const experience = db.getAllExperience();
-        const projects = db.getAllProjects();
-        const skills = db.getAllSkills();
-        const certifications = db.getAllCertifications();
-        const contact = db.getContactInfo();
-        const settings = db.getSiteSettings();
+        const personalInfo = await db.getPersonalInfo();
+        const education = await db.getAllEducation();
+        const experience = await db.getAllExperience();
+        const projects = await db.getAllProjects();
+        const skills = await db.getAllSkills();
+        const certifications = await db.getAllCertifications();
+        const contact = await db.getContactInfo();
+        const settings = await db.getSiteSettings();
 
         res.json({
             personalInfo,
@@ -33,9 +33,9 @@ router.get('/', (req, res) => {
 });
 
 // Get personal info
-router.get('/personal', (req, res) => {
+router.get('/personal', async (req, res) => {
     try {
-        const data = db.getPersonalInfo();
+        const data = await db.getPersonalInfo();
         res.json(data || {});
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
@@ -43,9 +43,9 @@ router.get('/personal', (req, res) => {
 });
 
 // Update personal info
-router.put('/personal', requireAuth, (req, res) => {
+router.put('/personal', requireAuth, async (req, res) => {
     try {
-        const updated = db.updatePersonalInfo(req.body);
+        const updated = await db.updatePersonalInfo(req.body);
         res.json({ success: true, data: updated });
     } catch (error) {
         console.error('Update personal info error:', error);
@@ -54,9 +54,9 @@ router.put('/personal', requireAuth, (req, res) => {
 });
 
 // Get contact info
-router.get('/contact', (req, res) => {
+router.get('/contact', async (req, res) => {
     try {
-        const data = db.getContactInfo();
+        const data = await db.getContactInfo();
         res.json(data || {});
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
@@ -64,9 +64,9 @@ router.get('/contact', (req, res) => {
 });
 
 // Update contact info
-router.put('/contact', requireAuth, (req, res) => {
+router.put('/contact', requireAuth, async (req, res) => {
     try {
-        const updated = db.updateContactInfo(req.body);
+        const updated = await db.updateContactInfo(req.body);
         res.json({ success: true, data: updated });
     } catch (error) {
         console.error('Update contact info error:', error);
@@ -75,9 +75,9 @@ router.put('/contact', requireAuth, (req, res) => {
 });
 
 // Get site settings
-router.get('/settings', (req, res) => {
+router.get('/settings', async (req, res) => {
     try {
-        const data = db.getSiteSettings();
+        const data = await db.getSiteSettings();
         res.json(data || {});
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
@@ -85,9 +85,9 @@ router.get('/settings', (req, res) => {
 });
 
 // Update site settings
-router.put('/settings', requireAuth, (req, res) => {
+router.put('/settings', requireAuth, async (req, res) => {
     try {
-        const updated = db.updateSiteSettings(req.body);
+        const updated = await db.updateSiteSettings(req.body);
         res.json({ success: true, data: updated });
     } catch (error) {
         console.error('Update settings error:', error);

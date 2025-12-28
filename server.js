@@ -4,6 +4,9 @@ const session = require('express-session');
 const cors = require('cors');
 const path = require('path');
 
+// Import database
+const db = require('./src/database/db');
+
 // Import routes
 const authRoutes = require('./src/routes/auth');
 const portfolioRoutes = require('./src/routes/portfolio');
@@ -73,9 +76,16 @@ app.use((err, req, res, next) => {
     res.status(500).json({ error: 'Internal server error' });
 });
 
-// Start server
-app.listen(PORT, () => {
-    console.log(`
+// Start server with database initialization
+async function startServer() {
+    try {
+        // Initialize database (creates tables if using PostgreSQL)
+        if (db.init) {
+            await db.init();
+        }
+
+        app.listen(PORT, () => {
+            console.log(`
     ╔═══════════════════════════════════════════════════════════╗
     ║                                                           ║
     ║   🚀 Business Portfolio Server Running                    ║
@@ -88,7 +98,15 @@ app.listen(PORT, () => {
     ║      Password: admin123                                   ║
     ║                                                           ║
     ╚═══════════════════════════════════════════════════════════╝
-    `);
-});
+            `);
+        });
+    } catch (error) {
+        console.error('Failed to start server:', error);
+        process.exit(1);
+    }
+}
+
+startServer();
 
 module.exports = app;
+
