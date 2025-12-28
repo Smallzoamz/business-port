@@ -33,12 +33,38 @@ async function loadPortfolioData() {
         renderSkills(portfolioData.skills);
         renderCertifications(portfolioData.certifications);
         renderContact(portfolioData.contact);
+        renderSettings(portfolioData.settings);
         updateStats(portfolioData);
 
         // Initialize reveal animations after content is loaded
         setTimeout(initRevealAnimations, 100);
     } catch (error) {
         console.error('Error loading portfolio data:', error);
+    }
+}
+
+function renderSettings(settings) {
+    if (!settings) return;
+
+    // Update page title
+    if (settings.site_title) {
+        document.title = settings.site_title;
+    }
+
+    // Update meta description
+    if (settings.meta_description) {
+        let metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) {
+            metaDesc.setAttribute('content', settings.meta_description);
+        }
+    }
+
+    // Update favicon
+    if (settings.favicon_url) {
+        const favicon = document.getElementById('site-favicon');
+        if (favicon) {
+            favicon.href = settings.favicon_url;
+        }
     }
 }
 

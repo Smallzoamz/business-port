@@ -180,6 +180,12 @@ function populateSettingsForm(data) {
 
     document.getElementById('site_title').value = data.site_title || '';
     document.getElementById('meta_description').value = data.meta_description || '';
+    document.getElementById('favicon_url').value = data.favicon_url || '';
+
+    // Show favicon preview if exists
+    if (data.favicon_url) {
+        document.getElementById('favicon-preview').innerHTML = `<img src="${data.favicon_url}" alt="Favicon">`;
+    }
 }
 
 // ========================================
@@ -493,6 +499,17 @@ function initForms() {
             await uploadResume(e.target.files[0]);
         }
     });
+
+    // Favicon upload
+    document.getElementById('favicon-preview').addEventListener('click', () => {
+        document.getElementById('favicon-input').click();
+    });
+
+    document.getElementById('favicon-input').addEventListener('change', async (e) => {
+        if (e.target.files[0]) {
+            await uploadFavicon(e.target.files[0]);
+        }
+    });
 }
 
 async function savePersonalInfo() {
@@ -555,7 +572,8 @@ async function saveContactInfo() {
 async function saveSettings() {
     const formData = {
         site_title: document.getElementById('site_title').value,
-        meta_description: document.getElementById('meta_description').value
+        meta_description: document.getElementById('meta_description').value,
+        favicon_url: document.getElementById('favicon_url').value
     };
 
     try {
@@ -649,6 +667,30 @@ async function uploadResume(file) {
         }
     } catch (error) {
         showToast('อัพโหลด Resume ไม่สำเร็จ', 'error');
+    }
+}
+
+async function uploadFavicon(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+        const response = await fetch('/api/files/upload', {
+            method: 'POST',
+            body: formData
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            document.getElementById('favicon_url').value = data.file.url;
+            document.getElementById('favicon-preview').innerHTML = `<img src="${data.file.url}" alt="Favicon">`;
+            showToast('อัพโหลดไอคอนสำเร็จ', 'success');
+        } else {
+            throw new Error('Upload failed');
+        }
+    } catch (error) {
+        showToast('อัพโหลดไอคอนไม่สำเร็จ', 'error');
     }
 }
 
